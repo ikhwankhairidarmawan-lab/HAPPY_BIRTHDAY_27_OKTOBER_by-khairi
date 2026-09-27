@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Selamat Ulang Tahun, Nahda Calista Azalia</title>
+    <link rel="stylesheet" href="NA.css">
+</head>
+
+<body>
+
+    <div id="pin-overlay" class="overlay">
+        <div class="pin-box">
+            <h2>for you my ex</h2>
+            <p>Masukkan kode yang aku kirim</p>
+            <div class="pin-dots">
+                <span class="dot"></span>
+                <span class="dot"></span>
+                <span class="dot"></span>
+                <span class="dot"></span>
+                <span class="dot"></span>
+                <span class="dot"></span>
+            </div>
+            <div class="pin-keypad">
+                <button onclick="pressPin('1')">1</button>
+                <button onclick="pressPin('2')">2</button>
+                <button onclick="pressPin('3')">3</button>
+                <button onclick="pressPin('4')">4</button>
+                <button onclick="pressPin('5')">5</button>
+                <button onclick="pressPin('6')">6</button>
+                <button onclick="pressPin('7')">7</button>
+                <button onclick="pressPin('8')">8</button>
+                <button onclick="pressPin('9')">9</button>
+                <button onclick="clearPin()">✕</button>
+                <button onclick="pressPin('0')">0</button>
+                <button onclick="submitPin()">✓</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="gift-overlay" class="overlay hidden">
+        <div class="gift-box" onclick="openGift()">
+            <p>Ketuk kotak hadiah untuk membukanya 🎁</p>
+            <div class="gift-icon">🎁</div>
+        </div>
+    </div>
+
+    <main id="main-content" class="hidden">
+
+        <section class="hero-section">
+            <span class="sub-title">YOUR SPECIAL DAY</span>
+            <h1>Happy Birthday Florence</h1>
+            <p class="date">OKTOBER 27 • THE MOST SPECIAL DAY</p>
+
+            <div class="cake-container">
+                <div class="cake" onclick="blowCandle()">
+                    <div class="candle">
+                        <div class="flame" id="flame"></div>
+                    </div>
+                </div>
+            </div>
+            <p class="instruction">Tap lilin untuk meniupnya! 🎂</p>
+
+            <div class="message-card">
+                <h3>Happy Birthday! Florence yang paling istimewa 🌸</h3>
+                <p>— I MISS YOU NOW —</p>
+            </div>
+        </section>
+
+        <section class="letter-section">
+            <span class="section-label">— A LETTER FOR YOU —</span>
+            <div class="letter-card">
+                <span class="date">27 OKTOBER</span>
+                <h2>HI, my ex 🌸</h2>
+                <p>Di hari yang paling istimewa ini, aku ingin kamu tahu bahwa aku selalu merindukan mu,
+                    walaupun aku yang memutuskan untuk pergi, tetapi percayalah orang yang meninggakanmu
+                    jauh lebih menyesal....
+                </p>
+                <p>
+
+                </p>
+                </p>
+                <p>Terima kasih sudah duduk sejenak di hatiku .</p>
+                <p class="signature">YOU KHOW?? I MIS YOU,<br></p>
+            </div>
+        </section>
+
+        <section class="bouquet-section">
+            <span class="section-label">— MY FIRST GIFT —</span>
+            <h2>Digital Bouquet</h2>
+            <p>Setiap bunga menyimpan pesan kecil untukmu</p>
+            <div class="flower-pot">
+                <span class="flower"
+                    onclick="showFlowerMsg('Tulip: Kamu secantik bunga tulip di musim semi.')">🌷</span>
+                <span class="flower" onclick="showFlowerMsg('Mawar: Setiap kelopak menyimpan rasa cintaku.')">🌹</span>
+                <span class="flower"
+                    onclick="showFlowerMsg('Matahari: Kamu selalu mencerahkan hariku, walau pun dengan jarak jauh.')">🌻</span>
+                <span class="flower" onclick="showFlowerMsg('Anggrek: Tumbuh perlahan namun indah.')">🌺</span>
+                <span class="flower" onclick="showFlowerMsg('Kembang Sepatu: Selalu cerah dan memikat.')">🌸</span>
+            </div>
+            <p id="flower-message" class="flower-message-box">Klik salah satu bunga di atas...</p>
+        </section>
+
+        <section class="gallery-section">
+            <h2>foto mu </h2>
+            <div class="polaroid-grid">
+                <div class="polaroid-card">
+                    <img src="foto1.jpeg" alt="Foto 1">
+                    <p> </p>
+                </div>
+                <div class="polaroid-card">
+                    <img src="foto2.jpeg" alt="Foto 2">
+                    <p> </p>
+                </div>
+                <div class="polaroid-card">
+                    <img src="foto3.jpeg" alt="Foto 3">
+                    <p> </p>
+                </div>
+                <div class="polaroid-card">
+                    <img src="foto4.jpeg" alt="Foto 4">
+                    <p> </p>
+                </div>
+            </div>
+        </section>
+
+        <section class="playlist-section">
+            <h2>Our Playlist</h2>
+            <p>Pilih lagu yang ingin kamu dengarkan di bawah ini</p>
+            <div class="music-player">
+                <p id="now-playing">NOW PLAYING: Monokrom - Tulus</p>
+                <audio id="audio-player" controls src="Vs.mpeg"></audio>
+            </div>
+            <ul class="song-list">
+                <li onclick="playSong('Super Powers - Daniel Caesar', 'super.mp3')">1. Super Powers - Daniel Caesar</li>
+                <li onclick="playSong('Monokrom - Tulus', 'Vs.mpeg')">2. Monokrom - Tulus</li>
+                <li onclick="playSong('AH - Nadin Amizah', 'judul.mp3')">3. Selamat ulang tahun - jamrud</li>
+            </ul>
+        </section>
+
+        <section class="jar-section">
+            <span class="section-label">— FROM MY HEART TO YOURS —</span>
+            <h2>Reasons I'm Grateful To Know You</h2>
+            <p>Kocok toples dan ambil sebuah catatan 🫙</p>
+            <button class="btn-shake" onclick="shakeJar()">Kocok toplesnya</button>
+            <div id="jar-note" class="jar-note-box">
+                <p id="note-text">Klik tombol di atas untuk mengambil catatan...</p>
+            </div>
+        </section>
+
+        <footer class="footer-section">
+            <span class="section-label">— WITH ALL MY HEART —</span>
+            <h2>Thank You, for everything.</h2>
+            <p>Selamat ulang tahun, Semoga tahun ini membawa lebih banyak tawa, lebih banyak cerita,
+                dan lebih banyak alasan untuk bersyukur.</p>
+            <p>
+
+            </p>
+            <p>
+
+            </p>
+        </footer>
+
+    </main>
+
+    <script src="script.js"></script>
+</body>
+
+</html>
