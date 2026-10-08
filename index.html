@@ -1,0 +1,1058 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Selamat Ulang Tahun, Nahda Calista Azalia</title>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,40git config --global --add safe.directory E:/2/Nahda0;1,600&family=Plus+Jakarta+Sans:wght@300;400;500;600&family=Sacramento&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --bg-color: #0f0c1b;
+            --card-bg: rgba(255, 255, 255, 0.05);
+            --card-border: rgba(255, 255, 255, 0.12);
+            --primary-rose: #e2a9b3;
+            --accent-gold: #e5c158;
+            --text-main: #f3e9f0;
+            --text-sub: #b8a9b8;
+            --glow: rgba(226, 169, 179, 0.35);
+            --font-serif: 'Cormorant Garamond', serif;
+            --font-sans: 'Plus Jakarta Sans', sans-serif;
+            --font-cursive: 'Sacramento', cursive;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            user-select: none;
+            -webkit-user-select: none;
+        }
+
+        body {
+            background: radial-gradient(circle at top center, #1e172d 0%, #0d0a15 100%);
+            color: var(--text-main);
+            font-family: var(--font-sans);
+            min-height: 100vh;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        #particle-canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        ::-webkit-scrollbar {
+            width: 6px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #0f0c1b;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: var(--card-border);
+            border-radius: 10px;
+        }
+
+        .glass-card {
+            background: var(--card-bg);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid var(--card-border);
+            border-radius: 24px;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(10, 8, 18, 0.88);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            opacity: 1;
+            visibility: visible;
+            transition: opacity 0.6s ease, visibility 0.6s ease;
+            padding: 20px;
+        }
+
+        .overlay.hidden {
+            opacity: 0;
+            visibility: hidden;
+            pointer-events: none;
+        }
+
+        .pin-box {
+            background: rgba(25, 20, 38, 0.8);
+            border: 1px solid rgba(226, 169, 179, 0.2);
+            border-radius: 28px;
+            padding: 35px 30px;
+            width: 100%;
+            max-width: 360px;
+            text-align: center;
+            box-shadow: 0 15px 40px rgba(0,0,0,0.6), 0 0 30px var(--glow);
+        }
+
+        .pin-box h2 {
+            font-family: var(--font-serif);
+            font-size: 1.8rem;
+            color: var(--primary-rose);
+            margin-bottom: 6px;
+            font-weight: 600;
+            letter-spacing: 1px;
+        }
+
+        .pin-box p {
+            font-size: 0.85rem;
+            color: var(--text-sub);
+            margin-bottom: 25px;
+        }
+
+        .pin-dots {
+            display: flex;
+            justify-content: center;
+            gap: 12px;
+            margin-bottom: 28px;
+        }
+
+        .dot {
+            width: 14px;
+            height: 14px;
+            border-radius: 50%;
+            border: 2px solid var(--primary-rose);
+            transition: all 0.25s ease;
+        }
+
+        .dot.active {
+            background: var(--primary-rose);
+            box-shadow: 0 0 12px var(--primary-rose);
+            transform: scale(1.15);
+        }
+
+        .pin-keypad {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 14px;
+            justify-items: center;
+        }
+
+        .pin-keypad button {
+            width: 62px;
+            height: 62px;
+            border-radius: 50%;
+            border: 1px solid var(--card-border);
+            background: rgba(255, 255, 255, 0.04);
+            color: var(--text-main);
+            font-size: 1.25rem;
+            font-family: var(--font-sans);
+            cursor: pointer;
+            transition: all 0.2s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .pin-keypad button:hover {
+            background: rgba(226, 169, 179, 0.2);
+            border-color: var(--primary-rose);
+            transform: scale(1.08);
+        }
+
+        .pin-keypad button:active {
+            transform: scale(0.95);
+        }
+
+        .gift-box-container {
+            text-align: center;
+            cursor: pointer;
+        }
+
+        .gift-icon {
+            font-size: 90px;
+            filter: drop-shadow(0 10px 20px rgba(226, 169, 179, 0.4));
+            animation: pulseGift 2s infinite ease-in-out;
+            margin-bottom: 20px;
+            display: inline-block;
+        }
+
+        @keyframes pulseGift {
+            0%, 100% { transform: scale(1) rotate(0deg); }
+            50% { transform: scale(1.1) rotate(4deg); }
+        }
+
+        .gift-box-container p {
+            font-family: var(--font-serif);
+            font-size: 1.3rem;
+            color: var(--primary-rose);
+            letter-spacing: 1px;
+        }
+
+        #main-content {
+            position: relative;
+            z-index: 1;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 40px 20px 80px 20px;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 1s ease, transform 1s ease;
+        }
+
+        #main-content.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        section {
+            margin-bottom: 80px;
+            text-align: center;
+        }
+
+        .section-label {
+            font-size: 0.75rem;
+            letter-spacing: 3px;
+            color: var(--accent-gold);
+            text-transform: uppercase;
+            display: block;
+            margin-bottom: 10px;
+            font-weight: 600;
+        }
+
+        h1, h2 {
+            font-family: var(--font-serif);
+            font-weight: 400;
+        }
+
+        .hero-section h1 {
+            font-size: 2.8rem;
+            color: var(--primary-rose);
+            margin-bottom: 8px;
+            line-height: 1.2;
+            text-shadow: 0 0 20px rgba(226, 169, 179, 0.3);
+        }
+
+        .hero-section .date {
+            font-size: 0.85rem;
+            letter-spacing: 2px;
+            color: var(--text-sub);
+            margin-bottom: 40px;
+        }
+
+        .cake-wrapper {
+            position: relative;
+            width: 180px;
+            height: 180px;
+            margin: 30px auto;
+            cursor: pointer;
+        }
+
+        .cake-body {
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 140px;
+            height: 90px;
+            background: linear-gradient(135deg, #3d2a3f, #231928);
+            border-radius: 16px 16px 8px 8px;
+            border: 1px solid rgba(226, 169, 179, 0.3);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.5);
+        }
+
+        .cake-layer {
+            position: absolute;
+            top: 25px;
+            width: 100%;
+            height: 8px;
+            background: var(--primary-rose);
+            opacity: 0.7;
+        }
+
+        .candle-stick {
+            position: absolute;
+            top: 25px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 12px;
+            height: 45px;
+            background: linear-gradient(to right, #fbf2eb, #e2cbbe);
+            border-radius: 4px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.3);
+        }
+
+        .flame-light {
+            position: absolute;
+            top: -22px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 16px;
+            height: 24px;
+            background: radial-gradient(circle, #ffe17d 20%, #ff8c00 70%);
+            border-radius: 50% 50% 35% 35%;
+            box-shadow: 0 0 20px #ff8c00, 0 0 40px #ffe17d;
+            animation: flicker 0.15s infinite alternate;
+            transition: all 0.5s ease;
+        }
+
+        .flame-light.blown {
+            opacity: 0;
+            transform: translateX(-50%) scale(0.2);
+        }
+
+        @keyframes flicker {
+            0% { transform: translateX(-50%) scale(1) rotate(-1deg); }
+            100% { transform: translateX(-50%) scale(1.08) rotate(1deg); }
+        }
+
+        .instruction {
+            font-size: 0.9rem;
+            color: var(--accent-gold);
+            margin-top: 15px;
+            font-style: italic;
+        }
+
+        .letter-card {
+            padding: 40px 30px;
+            text-align: left;
+            position: relative;
+            overflow: hidden;
+            border-color: rgba(226, 169, 179, 0.25);
+        }
+
+        .letter-card::before {
+            content: "🌸";
+            position: absolute;
+            right: -10px;
+            bottom: -10px;
+            font-size: 100px;
+            opacity: 0.05;
+            pointer-events: none;
+        }
+
+        .letter-card .letter-date {
+            font-size: 0.8rem;
+            color: var(--accent-gold);
+            letter-spacing: 1.5px;
+            display: block;
+            margin-bottom: 15px;
+        }
+
+        .letter-card h2 {
+            font-size: 2rem;
+            color: var(--primary-rose);
+            margin-bottom: 20px;
+        }
+
+        .letter-card p {
+            font-size: 1.05rem;
+            line-height: 1.8;
+            color: #d1c5d2;
+            margin-bottom: 18px;
+            font-weight: 300;
+        }
+
+        .letter-card .signature {
+            font-family: var(--font-cursive);
+            font-size: 2.2rem;
+            color: var(--primary-rose);
+            text-align: right;
+            margin-top: 30px;
+            display: block;
+        }
+
+        .bouquet-container {
+            padding: 35px 25px;
+        }
+
+        .flower-pot {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap;
+            margin: 30px 0;
+        }
+
+        .flower-item {
+            font-size: 45px;
+            width: 75px;
+            height: 75px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid var(--card-border);
+            border-radius: 20px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .flower-item:hover {
+            transform: translateY(-8px) scale(1.1);
+            border-color: var(--primary-rose);
+            box-shadow: 0 10px 20px var(--glow);
+            background: rgba(226, 169, 179, 0.1);
+        }
+
+        .flower-message-box {
+            min-height: 70px;
+            padding: 18px 20px;
+            background: rgba(15, 12, 27, 0.6);
+            border-radius: 16px;
+            border: 1px dashed var(--card-border);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.95rem;
+            color: var(--text-main);
+            transition: all 0.3s ease;
+            font-style: italic;
+        }
+
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+            gap: 20px;
+            margin-top: 30px;
+        }
+
+        .polaroid-card {
+            background: #fbf7f4;
+            padding: 12px 12px 25px 12px;
+            border-radius: 8px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+            transform: rotate(var(--rot, 0deg));
+            transition: all 0.4s ease;
+            cursor: pointer;
+        }
+
+        .polaroid-card:hover {
+            transform: scale(1.08) rotate(0deg) !important;
+            z-index: 10;
+            box-shadow: 0 20px 40px rgba(226, 169, 179, 0.3);
+        }
+
+        .polaroid-img {
+            width: 100%;
+            height: 160px;
+            object-fit: cover;
+            border-radius: 4px;
+            background: #e6dfdb;
+        }
+
+        .polaroid-caption {
+            font-family: var(--font-cursive);
+            color: #332b35;
+            font-size: 1.4rem;
+            margin-top: 12px;
+            text-align: center;
+        }
+
+        .player-card {
+            padding: 30px 25px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .vinyl-record {
+            width: 110px;
+            height: 110px;
+            background: radial-gradient(circle, #111 30%, #333 31%, #111 32%, #222 65%, #111 66%);
+            border-radius: 50%;
+            border: 3px solid rgba(255,255,255,0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 20px;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.6);
+            transition: transform 0.5s ease;
+        }
+
+        .vinyl-record.playing {
+            animation: spin 4s linear infinite;
+        }
+
+        .vinyl-center {
+            width: 35px;
+            height: 35px;
+            background: var(--primary-rose);
+            border-radius: 50%;
+            border: 4px solid #111;
+        }
+
+        @keyframes spin {
+            100% { transform: rotate(360deg); }
+        }
+
+        .song-info {
+            margin-bottom: 20px;
+        }
+
+        .song-title {
+            font-family: var(--font-serif);
+            font-size: 1.4rem;
+            color: var(--primary-rose);
+            margin-bottom: 4px;
+        }
+
+        .song-artist {
+            font-size: 0.85rem;
+            color: var(--text-sub);
+        }
+
+        .audio-controls {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            margin-bottom: 25px;
+        }
+
+        .control-btn {
+            background: rgba(226, 169, 179, 0.15);
+            border: 1px solid var(--primary-rose);
+            color: var(--primary-rose);
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            font-size: 1.2rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+        }
+
+        .control-btn:hover {
+            background: var(--primary-rose);
+            color: var(--bg-color);
+            transform: scale(1.1);
+        }
+
+        .song-list {
+            list-style: none;
+            width: 100%;
+            max-width: 400px;
+            text-align: left;
+        }
+
+        .song-item {
+            padding: 12px 18px;
+            border-radius: 12px;
+            margin-bottom: 8px;
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid transparent;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+        }
+
+        .song-item:hover, .song-item.active {
+            background: rgba(226, 169, 179, 0.1);
+            border-color: var(--card-border);
+            color: var(--primary-rose);
+        }
+
+        .jar-container {
+            padding: 35px 25px;
+        }
+
+        .jar-icon {
+            font-size: 70px;
+            cursor: pointer;
+            display: inline-block;
+            transition: transform 0.2s ease;
+            margin: 15px 0;
+            filter: drop-shadow(0 10px 15px rgba(0,0,0,0.5));
+        }
+
+        .jar-icon.shake {
+            animation: shakeJarAnim 0.5s ease-in-out;
+        }
+
+        @keyframes shakeJarAnim {
+            0%, 100% { transform: rotate(0deg); }
+            20% { transform: rotate(-12deg); }
+            40% { transform: rotate(12deg); }
+            60% { transform: rotate(-8deg); }
+            80% { transform: rotate(8deg); }
+        }
+
+        .btn-shake {
+            background: linear-gradient(135deg, var(--primary-rose), #c88a96);
+            color: #17101d;
+            border: none;
+            padding: 12px 28px;
+            border-radius: 30px;
+            font-weight: 600;
+            font-size: 0.9rem;
+            cursor: pointer;
+            box-shadow: 0 5px 20px var(--glow);
+            transition: all 0.3s ease;
+            margin-bottom: 20px;
+        }
+
+        .btn-shake:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px var(--glow);
+        }
+
+        .jar-note-box {
+            min-height: 80px;
+            padding: 20px;
+            background: rgba(15, 12, 27, 0.6);
+            border-radius: 16px;
+            border: 1px solid var(--card-border);
+            font-size: 0.95rem;
+            color: #e3d7e4;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-style: italic;
+            line-height: 1.6;
+        }
+
+        .footer-section {
+            padding: 40px 20px;
+            border-top: 1px solid var(--card-border);
+            margin-bottom: 0;
+        }
+
+        .footer-section h2 {
+            font-size: 1.8rem;
+            color: var(--primary-rose);
+            margin-bottom: 12px;
+        }
+
+        .footer-section p {
+            color: var(--text-sub);
+            font-size: 0.9rem;
+            max-width: 500px;
+            margin: 0 auto;
+            line-height: 1.6;
+        }
+
+        @media (max-width: 600px) {
+            .hero-section h1 {
+                font-size: 2.2rem;
+            }
+            .letter-card {
+                padding: 25px 20px;
+            }
+            .flower-item {
+                width: 60px;
+                height: 60px;
+                font-size: 35px;
+            }
+            .polaroid-img {
+                height: 130px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <canvas id="particle-canvas"></canvas>
+
+    <!-- Lock Screen PIN Overlay -->
+    <div id="pin-overlay" class="overlay">
+        <div class="pin-box">
+            <h2>For You, Florence</h2>
+            <p>Masukkan kode rahasia tanggal lahirmu (DDMMYY)</p>
+            <div class="pin-dots">
+                <span class="dot"></span>
+                <span class="dot"></span>
+                <span class="dot"></span>
+                <span class="dot"></span>
+                <span class="dot"></span>
+                <span class="dot"></span>
+            </div>
+            <div class="pin-keypad">
+                <button onclick="pressPin('1')">1</button>
+                <button onclick="pressPin('2')">2</button>
+                <button onclick="pressPin('3')">3</button>
+                <button onclick="pressPin('4')">4</button>
+                <button onclick="pressPin('5')">5</button>
+                <button onclick="pressPin('6')">6</button>
+                <button onclick="pressPin('7')">7</button>
+                <button onclick="pressPin('8')">8</button>
+                <button onclick="pressPin('9')">9</button>
+                <button onclick="clearPin()">✕</button>
+                <button onclick="pressPin('0')">0</button>
+                <button onclick="submitPin()">✓</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Gift Box Overlay -->
+    <div id="gift-overlay" class="overlay hidden">
+        <div class="gift-box-container" onclick="openGift()">
+            <div class="gift-icon">🎁</div>
+            <p>Ada kejutan kecil untukmu...<br><span style="font-size:0.85rem; opacity:0.8;">(Ketuk kado untuk membuka)</span></p>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <main id="main-content">
+
+        <!-- Hero Section -->
+        <section class="hero-section">
+            <span class="section-label">YOUR SPECIAL DAY</span>
+            <h1>Happy Birthday Nahda</h1>
+            <p class="date">OKTOBER 27 • THE MOST SPECIAL DAY</p>
+
+            <div class="cake-wrapper" onclick="blowCandle()">
+                <div class="flame-light" id="flame"></div>
+                <div class="candle-stick"></div>
+                <div class="cake-body">
+                    <div class="cake-layer"></div>
+                </div>
+            </div>
+            <p class="instruction" id="cake-instruction">Ketuk lilin untuk meniup harapanmu 🎂</p>
+        </section>
+
+        <!-- Letter Section -->
+        <section class="letter-section">
+            <span class="section-label">— A LETTER FOR YOU —</span>
+            <div class="glass-card letter-card">
+                <span class="letter-date">27 OKTOBER</span>
+                <h2>Hi, Nahda Calista Azalia🌸</h2>
+                <p>Di hari yang paling istimewa ini, aku hanya ingin kamu tahu bahwa namamu masih tersimpan dengan begitu hangat di lembaran kenanganku.</p>
+                <p>Meskipun takdir dan keputusan masa lalu membawa kita ke jalan yang tak lagi berdampingan—dan meskipun aku yang memilih untuk pergi—percayalah, rasa penyesalan dan kerinduan itu selalu hadir secara diam-diam.</p>
+                <p>Terima kasih pernah menjadi bagian paling indah dalam hidupku. Terima kasih telah duduk dan menetap sejenak di hatiku. Semoga di usiamu yang baru ini, bahagiamu melimpah, dan langkahmu selalu dipeluk kedamaian.</p>
+                <span class="signature">You know? I miss you.</span>
+            </div>
+        </section>
+
+        <!-- WhatsApp Button Section -->
+<section class="whatsapp-section" style="text-align: center; margin-bottom: 60px;">
+    <a href="https://wa.me/6282318799484?text=Hai!%20Makasih%20banyak%20ya%20buat%20ucapan%20dan%20webnya%20🌸" 
+       target="_blank" 
+       class="btn-whatsapp">
+       💬 Balas Pesan via WhatsApp
+    </a>
+</section>
+
+<section class="whatsapp-section" style="text-align: center; margin-bottom: 60px;">
+    <a href="https://tiktok.me/@xybca_489?text=Hai!%20Makasih%20banyak%20ya%20buat%20ucapan%20dan%20webnya%20🌸" 
+       target="_blank" 
+       class="btn-tiktok">
+       💬 Balas Pesan via tiktok
+    </a>
+</section>
+
+
+
+        <!-- Bouquet Section -->
+        <section class="bouquet-section">
+            <div class="glass-card bouquet-container">
+                <span class="section-label">— MY DIGITAL GIFT —</span>
+                <h2 style="font-family: var(--font-serif); color: var(--primary-rose);">Digital Bouquet</h2>
+                <p style="font-size: 0.85rem; color: var(--text-sub); margin-top: 5px;">Setiap kelopak menyimpan pesan kecil dari masa lalu</p>
+
+                <div class="flower-pot">
+                    <div class="flower-item" onclick="showFlowerMsg('Tulip 🌷: Kamu selalu secantik bunga tulip di musim semi, mempesona tanpa perlu berusaha.')">🌷</div>
+                    <div class="flower-item" onclick="showFlowerMsg('Mawar 🌹: Setiap kelopaknya adalah pengingat betapa tulusnya rasa yang pernah ada.')">🌹</div>
+                    <div class="flower-item" onclick="showFlowerMsg('Matahari 🌻: Kamu selalu mencerahkan hariku, bahkan saat kita terpisah jarak dan waktu.')">🌻</div>
+                    <div class="flower-item" onclick="showFlowerMsg('Anggrek 🌺: Tumbuh perlahan, anggun, dan selalu meninggalkan kesan yang mendalam.')">🌺</div>
+                    <div class="flower-item" onclick="showFlowerMsg('Kembang Sepatu 🌸: Selalu cerah, hangat, dan membawa keceriaan di mana pun kamu berada.')">🌸</div>
+                </div>
+
+                <div id="flower-message" class="flower-message-box">
+                    Pilih dan klik salah satu bunga di atas...
+                </div>
+            </div>
+        </section>
+
+        <!-- Polaroid Gallery Section -->
+        <section class="gallery-section">
+            <span class="section-label">— MEMORIES —</span>
+            <h2 style="font-family: var(--font-serif); color: var(--primary-rose); margin-bottom: 10px;">Foto & Kenangan</h2>
+            <div class="gallery-grid">
+                <div class="polaroid-card" style="--rot: -4deg;">
+                    <img src="foto2.jpeg" alt="NA 1" class="polaroid-img" onerror="this.src='https://placehold.co/400x500/231928/e2a9b3?text=Florence+1'">
+                    <div class="polaroid-caption">Senyummu 🌸</div>
+                </div>
+                <div class="polaroid-card" style="--rot: 3deg;">
+                    <img src="foto3.jpeg" alt="NA 2" class="polaroid-img" onerror="this.src='https://placehold.co/400x500/231928/e2a9b3?text=Florence+2'">
+                    <div class="polaroid-caption">Hari Indah ✨</div>
+                </div>
+                <div class="polaroid-card" style="--rot: -3deg;">
+                    <img src="foto1.jpeg" alt="NA 3" class="polaroid-img" onerror="this.src='https://placehold.co/400x500/231928/e2a9b3?text=Florence+3'">
+                    <div class="polaroid-caption">Tawa Bahagia 💫</div>
+                </div>
+                <div class="polaroid-card" style="--rot: 5deg;">
+                    <img src="foto4.jpeg" alt="NA 4" class="polaroid-img" onerror="this.src='https://placehold.co/400x500/231928/e2a9b3?text=Florence+4'">
+                    <div class="polaroid-caption">Selalu Abadi 🌙</div>
+                </div>
+                <div class="polaroid-card" style="--rot: 5deg;">
+                    <img src="foto5.jpeg" alt="NA 5" class="polaroid-img" onerror="this.src='https://placehold.co/400x500/231928/e2a9b3?text=Florence+4'">
+                    <div class="polaroid-caption">Selalu Abadi 🌙</div>
+                </div>
+            
+            </div>
+        </section>
+
+        <!-- Playlist Section -->
+        <section class="playlist-section">
+            <span class="section-label">— SOUNDTRACK FOR YOU —</span>
+            <div class="glass-card player-card">
+                <div class="vinyl-record" id="vinyl">
+                    <div class="vinyl-center"></div>
+                </div>
+                <div class="song-info">
+                    <div class="song-title" id="song-title">Monokrom</div>
+                    <div class="song-artist" id="song-artist">Tulus</div>
+                </div>
+
+                <div class="audio-controls">
+                    <button class="control-btn" id="play-btn" onclick="togglePlay()">▶</button>
+                </div>
+
+                <ul class="song-list">
+                    <li class="song-item active" onclick="selectSong(0, 'Monokrom', 'Tulus')">
+                        <span>1. Monokrom</span>
+                        <span>Tulus</span>
+                    </li>
+                    <li class="song-item" onclick="selectSong(1, 'Super Powers', 'Daniel Caesar')">
+                        <span>2. Super Powers</span>
+                        <span>Daniel Caesar</span>
+                    </li>
+                    <li class="song-item" onclick="selectSong(2, 'Selamat Ulang Tahun', 'Jamrud')">
+                        <span>3. Selamat Ulang Tahun</span>
+                        <span>Jamrud</span>
+                    </li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- Jar of Reasons Section -->
+        <section class="jar-section">
+            <span class="section-label">— FROM MY HEART TO YOURS —</span>
+            <div class="glass-card jar-container">
+                <h2 style="font-family: var(--font-serif); color: var(--primary-rose);">Reasons I'm Grateful To Know You</h2>
+                <div class="jar-icon" id="jar-icon" onclick="shakeJar()">🫙</div>
+                <br>
+                <button class="btn-shake" onclick="shakeJar()">Kocok Toples Catatan ✦</button>
+
+                <div class="jar-note-box" id="jar-note">
+                    Klik tombol di atas untuk membaca satu alasan kecil...
+                </div>
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <footer class="footer-section">
+            <span class="section-label">— WITH ALL MY HEART —</span>
+            <h2>Thank You, For Everything</h2>
+            <p>Selamat ulang tahun, Florence. Semoga tahun ini membawa lebih banyak tawa, kehangatan, dan alasan untuk tersenyum setiap harinya.</p>
+        </footer>
+
+    </main>
+
+    <audio id="audio-player"></audio>
+
+    <script>
+        // Store PIN code in JavaScript variables
+        const CORRECT_PIN = "271015"; 
+        let enteredPin = "";
+        let isCandleBlown = false;
+        let isPlaying = false;
+
+        // Canvas Particle Background
+        const canvas = document.getElementById('particle-canvas');
+        const ctx = canvas.getContext('2d');
+        let particles = [];
+
+        function resizeCanvas() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        }
+        window.addEventListener('resize', resizeCanvas);
+        resizeCanvas();
+
+        class Particle {
+            constructor() {
+                this.x = Math.random() * canvas.width;
+                this.y = Math.random() * canvas.height;
+                this.size = Math.random() * 2 + 0.5;
+                this.speedX = Math.random() * 0.4 - 0.2;
+                this.speedY = Math.random() * 0.5 + 0.1;
+                this.opacity = Math.random() * 0.7 + 0.2;
+            }
+            update() {
+                this.x += this.speedX;
+                this.y += this.speedY;
+                if (this.y > canvas.height) {
+                    this.y = 0;
+                    this.x = Math.random() * canvas.width;
+                }
+            }
+            draw() {
+                ctx.fillStyle = `rgba(226, 169, 179, ${this.opacity})`;
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                ctx.fill();
+            }
+        }
+
+        function initParticles() {
+            particles = [];
+            for (let i = 0; i < 50; i++) {
+                particles.push(new Particle());
+            }
+        }
+        function animateParticles() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            particles.forEach(p => {
+                p.update();
+                p.draw();
+            });
+            requestAnimationFrame(animateParticles);
+        }
+        initParticles();
+        animateParticles();
+
+        // PIN Logic
+        function updateDots() {
+            const dots = document.querySelectorAll('.pin-dots .dot');
+            dots.forEach((dot, index) => {
+                if (index < enteredPin.length) {
+                    dot.classList.add('active');
+                } else {
+                    dot.classList.remove('active');
+                }
+            });
+        }
+
+        function pressPin(num) {
+            if (enteredPin.length < 6) {
+                enteredPin += num;
+                updateDots();
+            }
+            if (enteredPin.length === 6) {
+                setTimeout(submitPin, 300);
+            }
+        }
+
+        function clearPin() {
+            enteredPin = "";
+            updateDots();
+        }
+
+        function submitPin() {
+            if (enteredPin === CORRECT_PIN) {
+                document.getElementById('pin-overlay').classList.add('hidden');
+                document.getElementById('gift-overlay').classList.remove('hidden');
+            } else {
+                alert("Kode PIN salah, coba lagi ya!");
+                clearPin();
+            }
+        }
+
+        function openGift() {
+            document.getElementById('gift-overlay').classList.add('hidden');
+            const mainContent = document.getElementById('main-content');
+            mainContent.classList.add('visible');
+        }
+
+        // Interactive Cake
+        function blowCandle() {
+            if (!isCandleBlown) {
+                isCandleBlown = true;
+                document.getElementById('flame').classList.add('blown');
+                document.getElementById('cake-instruction').innerText = "Make a wish! Harapanmu sudah terkirim ✨";
+            }
+        }
+
+        // Bouquet
+        function showFlowerMsg(msg) {
+            const msgBox = document.getElementById('flower-message');
+            msgBox.style.opacity = 0;
+            setTimeout(() => {
+                msgBox.innerText = msg;
+                msgBox.style.opacity = 1;
+            }, 200);
+        }
+
+        // Playlist
+        const songs = [
+            { title: "Monokrom", artist: "Tulus", src: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" },
+            { title: "Super Powers", artist: "Daniel Caesar", src: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3" },
+            { title: "Selamat Ulang Tahun", artist: "Jamrud", src: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-3.mp3" }
+        ];
+        let currentSongIndex = 0;
+        const audioPlayer = document.getElementById('audio-player');
+
+        function togglePlay() {
+            const vinyl = document.getElementById('vinyl');
+            const playBtn = document.getElementById('play-btn');
+
+            if (!audioPlayer.src) {
+                audioPlayer.src = songs[currentSongIndex].src;
+            }
+
+            if (isPlaying) {
+                audioPlayer.pause();
+                vinyl.classList.remove('playing');
+                playBtn.innerText = "▶";
+            } else {
+                audioPlayer.play().catch(() => {});
+                vinyl.classList.add('playing');
+                playBtn.innerText = "❚❚";
+            }
+            isPlaying = !isPlaying;
+        }
+
+        function selectSong(index, title, artist) {
+            currentSongIndex = index;
+            document.getElementById('song-title').innerText = title;
+            document.getElementById('song-artist').innerText = artist;
+
+            const items = document.querySelectorAll('.song-item');
+            items.forEach((item, idx) => {
+                item.classList.toggle('active', idx === index);
+            });
+
+            audioPlayer.src = songs[index].src;
+            isPlaying = false;
+            togglePlay();
+        }
+
+        // Jar of Reasons
+        const reasons = [
+            "Kamu selalu punya cara untuk bikin suasana jadi lebih hangat.",
+            "Kebaikan dan ketulusan hatimu adalah hal yang paling berkesan.",
+            "Tawamu selalu menular dan bikin hari siapa pun jadi lebih cerah.",
+            "Cara pandangmu tentang hal-hal kecil selalu menginspirasi.",
+            "Terima kasih sudah pernah hadir dan mengukir kenangan indah.",
+            "Semoga kamu selalu dikelilingi oleh hal-hal baik yang layak kamu dapatkan."
+        ];
+
+        function shakeJar() {
+            const jarIcon = document.getElementById('jar-icon');
+            const jarNote = document.getElementById('jar-note');
+
+            jarIcon.classList.add('shake');
+            setTimeout(() => {
+                jarIcon.classList.remove('shake');
+                const randomReason = reasons[Math.floor(Math.random() * reasons.length)];
+                jarNote.innerText = `"${randomReason}"`;
+            }, 500);
+        }
+    </script>
+</body>
+</html>

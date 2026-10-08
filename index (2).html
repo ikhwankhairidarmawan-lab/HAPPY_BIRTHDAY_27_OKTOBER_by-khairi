@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Matrix Lover animation</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: #000;
+            overflow: hidden;
+            font-family: 'Courier New', Courier, monospace;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        canvas {
+            position: absolute;
+            top: 0;
+            left: 0;
+            z-index: 1;
+        }
+
+        /* Overlay untuk memunculkan teks utama di tengah screen */
+        #text-overlay {
+            position: relative;
+            z-index: 2;
+            color: #fff;
+            text-align: center;
+            font-weight: bold;
+            text-shadow: 0 0 10px #ff3385, 0 0 20px #ff3385, 0 0 30px #ff3385;
+            user-select: none;
+        }
+
+        .countdown {
+            font-size: 8rem;
+            animation: pulse 1s infinite;
+        }
+
+        .message {
+            font-size: 5rem;
+            animation: fadeInOut 1.5s ease-in-out forwards;
+        }
+
+        .heart-container {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            animation: fadeIn 2s ease-in forwards;
+        }
+
+        .heart-text {
+            font-size: 2.5rem;
+            color: #ffffff;
+            text-shadow: 0 0 10px #ff0066, 0 0 20px #ff0066;
+            margin-top: 20px;
+        }
+
+        /* Animasi */
+        @keyframes pulse {
+            0% {
+                transform: scale(0.8);
+                opacity: 0.5;
+            }
+
+            50% {
+                transform: scale(1.1);
+                opacity: 1;
+            }
+
+            100% {
+                transform: scale(0.8);
+                opacity: 0.5;
+            }
+        }
+
+        @keyframes fadeInOut {
+            0% {
+                opacity: 0;
+                transform: scale(0.5);
+            }
+
+            20% {
+                opacity: 1;
+                transform: scale(1);
+            }
+
+            80% {
+                opacity: 1;
+                transform: scale(1);
+            }
+
+            100% {
+                opacity: 0;
+                transform: scale(1.2);
+            }
+        }
+
+        @keyframes fadeIn {
+            0% {
+                opacity: 0;
+                transform: scale(0.5);
+            }
+
+            100% {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <canvas id="matrixCanvas"></canvas>
+    <div id="text-overlay"></div>
+
+    <script>
+        const canvas = document.getElementById('matrixCanvas');
+        const ctx = canvas.getContext('2d');
+
+        // Mengatur ukuran canvas memenuhi layar
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+
+        // Karakter hiasan jatuh (Kombinasi angka, huruf, katakana Jepang)
+        const katakana = "ｱｲｳｴｵｶｷｸｹｺｻｼｽｾｿﾀﾁﾂﾃﾄﾅﾆﾇﾈﾉﾊﾋﾌﾍﾎﾏﾐﾑﾒﾓﾔﾕﾖﾗﾘﾙﾚﾛﾜﾝ1234567890ABCDEFGHIJKLMNOPQRSTUVWXYZ♥";
+        const alphabet = katakana.split("");
+
+        const fontSize = 16;
+        const columns = canvas.width / fontSize;
+
+        const rainDrops = [];
+        for (let x = 0; x < columns; x++) {
+            rainDrops[x] = 1;
+        }
+
+        // Efek Matrix Rain (Warna Pink/Magenta & Putih)
+        function drawMatrix() {
+            ctx.fillStyle = 'rgba(0, 0, 0, 0.05)';
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+            for (let i = 0; i < rainDrops.length; i++) {
+                const text = alphabet[Math.floor(Math.random() * alphabet.length)];
+
+                // Variasi warna pink cerah dan putih di bagian ujung atas
+                if (Math.random() > 0.98) {
+                    ctx.fillStyle = '#fff'; // kilauan putih sesekali
+                } else {
+                    ctx.fillStyle = '#ff3385'; // warna pink utama
+                }
+
+                ctx.font = fontSize + 'px monospace';
+                ctx.fillText(text, i * fontSize, rainDrops[i] * fontSize);
+
+                if (rainDrops[i] * fontSize > canvas.height && Math.random() > 0.975) {
+                    rainDrops[i] = 0;
+                }
+                rainDrops[i]++;
+            }
+        }
+
+        // Handle resize window
+        window.addEventListener('resize', () => {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        });
+
+        // Loop background matrix
+        setInterval(drawMatrix, 30);
+
+        // --- Sistem Kontrol Timeline Teks & Efek Tengah ---
+        const overlay = document.getElementById('text-overlay');
+
+        const timeline = [
+            { type: 'countdown', text: '3', duration: 1000 },
+            { type: 'countdown', text: '2', duration: 1000 },
+            { type: 'countdown', text: '1', duration: 1000 },
+            { type: 'message', text: 'You', duration: 1500 },
+            { type: 'message', text: 'Are', duration: 1500 },
+            { type: 'message', text: 'My', duration: 1500 },
+            { type: 'message', text: 'Lover', duration: 1500 },
+            { type: 'heart', text: 'I Love You....', duration: 0 }
+        ];
+
+        let currentStep = 0;
+
+        function runTimeline() {
+            if (currentStep >= timeline.length) return;
+
+            const step = timeline[currentStep];
+            overlay.innerHTML = ''; // bersihkan konten sebelumnya
+
+            if (step.type === 'countdown') {
+                const el = document.createElement('div');
+                el.className = 'countdown';
+                el.innerText = step.text;
+                overlay.appendChild(el);
+            }
+            else if (step.type === 'message') {
+                const el = document.createElement('div');
+                el.className = 'message';
+                el.innerText = step.text;
+                overlay.appendChild(el);
+            }
+            else if (step.type === 'heart') {
+                const container = document.createElement('div');
+                container.className = 'heart-container';
+
+                // Membuat SVG Heart agar persis estetik seperti video
+                container.innerHTML = `
+                    <svg viewBox="0 0 32 32" width="180" height="180" fill="#ff0066" style="filter: drop-shadow(0 0 15px #ff3385);">
+                        <path d="M16 28.5C16 28.5 2 20.5 2 11.5C2 6.5 6 2.5 11 2.5C14 2.5 15.5 4.5 16 5.5C16.5 4.5 18 2.5 21 2.5C26 2.5 30 6.5 30 11.5C30 20.5 16 28.5 16 28.5Z"/>
+                    </svg>
+                    <div class="heart-text">${step.text}</div>
+                `;
+                overlay.appendChild(container);
+            }
+
+            currentStep++;
+            if (step.duration > 0) {
+                setTimeout(runTimeline, step.duration);
+            }
+        }
+
+        // Jalankan timeline setelah delay 1 detik saat web dibuka
+        setTimeout(runTimeline, 1000);
+    </script>
+</body>
+
+</html>

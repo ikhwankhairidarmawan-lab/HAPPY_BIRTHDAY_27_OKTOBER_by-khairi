@@ -1,0 +1,175 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Georgia', serif;
+}
+
+body {
+    background-color: #2b1322;
+    color: #fce4ec;
+    text-align: center;
+}
+
+.hidden {
+    display: none !important;
+}
+
+.overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: #2b1322;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 999;
+}
+
+/* PIN Box */
+.pin-box {
+    background: #3a1c30;
+    padding: 30px;
+    border-radius: 20px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.5);
+}
+
+.pin-dots {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin: 20px 0;
+}
+
+.dot {
+    width: 15px;
+    height: 15px;
+    border: 1px solid #ff80ab;
+    border-radius: 50%;
+}
+
+.dot.filled {
+    background-color: #ff80ab;
+}
+
+.pin-keypad {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 15px;
+}
+
+.pin-keypad button {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    border: none;
+    background: #4a243f;
+    color: #fff;
+    font-size: 1.2rem;
+    cursor: pointer;
+}
+
+/* Gift Box */
+.gift-box {
+    cursor: pointer;
+}
+
+.gift-icon {
+    font-size: 80px;
+    margin-top: 20px;
+    animation: bounce 1s infinite alternate;
+}
+
+@keyframes bounce {
+    from { transform: translateY(0); }
+    to { transform: translateY(-15px); }
+}
+
+/* Content Sections */
+section {
+    padding: 50px 20px;
+    max-width: 600px;
+    margin: auto;
+}
+
+.section-label {
+    font-size: 0.8rem;
+    letter-spacing: 2px;
+    color: #ff80ab;
+}
+
+/* Cake */
+.cake-container {
+    margin: 30px 0;
+}
+
+.flame {
+    width: 15px;
+    height: 25px;
+    background: orange;
+    border-radius: 50%;
+    margin: 0 auto;
+    box-shadow: 0 0 10px gold;
+}
+
+.flame.off {
+    display: none;
+}
+
+/* Polaroid Grid */
+.polaroid-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+    gap: 15px;
+    margin-top: 20px;
+}
+
+.polaroid-card {
+    background: #fff;
+    color: #333;
+    padding: 10px;
+    border-radius: 5px;
+    font-size: 0.8rem;
+}
+
+.polaroid-card img {
+    width: 100%;
+    height: 150px;
+    object-fit: cover;
+    border-radius: 3px;
+}
+
+/* Playlist & Notes */
+.song-list {
+    list-style: none;
+    margin-top: 15px;
+    text-align: left;
+}
+
+.song-list li {
+    padding: 10px;
+    background: #3a1c30;
+    margin-bottom: 5px;
+    border-radius: 8px;
+    cursor: pointer;
+}
+
+.btn-shake {
+    padding: 10px 20px;
+    background: #ff80ab;
+    border: none;
+    color: #2b1322;
+    border-radius: 20px;
+    font-weight: bold;
+    cursor: pointer;
+    margin-top: 15px;
+}
+
+.jar-note-box {
+    margin-top: 20px;
+    padding: 15px;
+    background: #3a1c30;
+    border-radius: 10px;
+}
